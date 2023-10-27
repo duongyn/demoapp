@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -41,12 +42,13 @@ public class SecurityConfig {
     public SecurityFilterChain asSecurityFilterChain(HttpSecurity http) throws Exception {
 
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
-         http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(withDefaults());
-         http.exceptionHandling(e -> e.authenticationEntryPoint(
-                                 new LoginUrlAuthenticationEntryPoint("/login")))
-                .oauth2ResourceServer((oauth2) -> oauth2
-                        .jwt(Customizer.withDefaults()));
-        return http.build();
+        return http
+                .getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(withDefaults())
+                .and()
+                .exceptionHandling(e -> e
+                        .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")))
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .build();
     }
 
     @Bean
@@ -58,15 +60,6 @@ public class SecurityConfig {
                 .build();
 
     }
-
-    //@Bean
-    //public UserDetailsService userDetailsService() {
-    //	var user1 = User.withUsername("user")
-    //			.password(passwordEncoder().encode("password"))
-    //			.authorities("read")
-    //			.build();
-    //	return new InMemoryUserDetailsManager(user1);
-    //}
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -81,7 +74,7 @@ public class SecurityConfig {
                 .scope("read")
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)
-                .redirectUri("http://localhost:8080/login/oauth2/code/myoauth2")
+                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/demoapp")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)

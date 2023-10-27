@@ -1,11 +1,11 @@
 package com.duonghai.shoppingonline.oauth2client;
 
-import com.duonghai.shoppingonline.oauth2authorizationserver.Oauth2AuthorizationServerApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.PropertySource;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 @PropertySource("classpath:application-oauth2-client.properties")
 public class Oauth2ClientApplication {
 
