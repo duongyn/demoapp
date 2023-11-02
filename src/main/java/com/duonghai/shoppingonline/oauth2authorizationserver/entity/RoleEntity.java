@@ -16,4 +16,8 @@ public class RoleEntity {
     @NonNull
     @Column(unique = true)
     private String role;
+
+    public RoleEntity(String role) {
+        this.role = role;
+    }
 }

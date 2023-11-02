@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
-@PropertySource("classpath:application-oauth2-resource-server.properties")
-public class Oauth2ResourceServerApplication {
+@PropertySource("classpath:application-oauth2-resource-custom-server.properties")
+public class Oauth2ResourceServerCustomApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Oauth2ResourceServerApplication.class, args);
+        SpringApplication.run(Oauth2ResourceServerCustomApplication.class, args);
     }
 }

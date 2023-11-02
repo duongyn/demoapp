@@ -9,6 +9,8 @@ public interface WelcomeClient {
 
 	@GetExchange("/")
 	String getWelcome();
-	
-	
+
+	@GetExchange("/loginSuccess")
+	String getSuccess();
+
 }

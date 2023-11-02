@@ -1,5 +1,6 @@
 package com.duonghai.shoppingonline.oauth2authorizationserver.entity;
 
+import com.duonghai.shoppingonline.oauth2authorizationserver.model.Provider;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -44,4 +45,7 @@ public class UserEntity {
     private String lastName;
     private String emailAddress;
     private LocalDate birthdate;
+
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
 }
