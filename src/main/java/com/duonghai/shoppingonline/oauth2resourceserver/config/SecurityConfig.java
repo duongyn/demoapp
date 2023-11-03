@@ -31,11 +31,13 @@ public class SecurityConfig {
 
 		return http
 				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/loginSocial").hasAnyAuthority("SCOPE_email")
 						.anyRequest().authenticated())
 				.oauth2ResourceServer(oauth2 -> oauth2
 						.authenticationManagerResolver(authenticationManagerResolver))
 				.build();
 	}
+
 
 	private void addManager(Map<String, AuthenticationManager> authenticationManagers, String issuer) {
 		JwtAuthenticationProvider authenticationProvider = new JwtAuthenticationProvider

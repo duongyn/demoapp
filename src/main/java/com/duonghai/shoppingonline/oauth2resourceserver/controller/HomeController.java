@@ -14,7 +14,7 @@ public class HomeController {
 		return "Welcome to Spring Resource Server 01! - " + (userDetails.getName()) + " - " + userDetails.getAuthorities();
 	}
 
-	@GetMapping("/loginSuccess")
+	@GetMapping("/loginSocial")
 	public String ssoLogin() {
 		Authentication userDetails = SecurityContextHolder.getContext().getAuthentication();
 		return "Welcome to Spring SSO! - " + userDetails.getName() + " - " + userDetails.getAuthorities();

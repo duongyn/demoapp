@@ -1,7 +1,5 @@
 package com.duonghai.shoppingonline.oauth2authorizationserver.socialclient.config;
 
-import com.duonghai.shoppingonline.oauth2authorizationserver.socialclient.exception.ExistException;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

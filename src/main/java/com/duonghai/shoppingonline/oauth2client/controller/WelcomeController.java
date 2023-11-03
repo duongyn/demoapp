@@ -18,7 +18,7 @@ public class WelcomeController {
 		return "<h1> Welcome home: " + authentication.getName() + " - " + authentication.getAuthorities() + "</h1><h2>" + welcome + "</h2>";
 	}
 
-	@GetMapping("/loginSuccess")
+	@GetMapping("/loginSocial")
 	public String success(Authentication authentication) {
 		String welcome = welcomeClient.getSuccess();
 		return "<h1> Welcome login: " + authentication.getName() + " - " + authentication.getAuthorities() + "</h1><h2>" + welcome + "</h2>";

@@ -22,9 +22,11 @@ public class OnStartupApplication {
         if(roleRepository.findAll().isEmpty()) {
             RoleEntity roleAdmin = new RoleEntity(ERole.ROLE_ADMIN.name());
             RoleEntity roleUser = new RoleEntity(ERole.ROLE_USER.name());
+            RoleEntity roleSocial = new RoleEntity(ERole.ROLE_SOCIAL.name());
             List<RoleEntity> roles = new ArrayList<>();
             roles.add(roleAdmin);
             roles.add(roleUser);
+            roles.add(roleSocial);
             roleRepository.saveAll(roles);
         }
     }

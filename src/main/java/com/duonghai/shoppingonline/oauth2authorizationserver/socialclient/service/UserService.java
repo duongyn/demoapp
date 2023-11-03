@@ -6,11 +6,12 @@ import com.duonghai.shoppingonline.oauth2authorizationserver.model.ERole;
 import com.duonghai.shoppingonline.oauth2authorizationserver.model.Provider;
 import com.duonghai.shoppingonline.oauth2authorizationserver.repository.RoleRepository;
 import com.duonghai.shoppingonline.oauth2authorizationserver.repository.UserRepository;
-import com.duonghai.shoppingonline.oauth2authorizationserver.socialclient.exception.ExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -35,9 +36,11 @@ public class UserService {
     }
 
     private void setRolesForUser(UserEntity user) {
-        RoleEntity roleUser = roleRepository.findByRole(ERole.ROLE_USER.name()).orElseThrow( () -> new ExistException(404, "Not found Role User in database"));
+        RoleEntity roleUser = roleRepository.findByRole(ERole.ROLE_USER.name()).orElseThrow( () -> new RuntimeException("Not found Role User in database"));
+        RoleEntity roleSocial = roleRepository.findByRole(ERole.ROLE_SOCIAL.name()).orElseThrow( () -> new RuntimeException("Not found Role OAUTH2 Social in database"));
         Set<RoleEntity> roles = new HashSet<>();
         roles.add(roleUser);
+        roles.add(roleSocial);
         user.setAuthorities(roles);
     }
 

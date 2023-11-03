@@ -10,7 +10,7 @@ public interface WelcomeClient {
 	@GetExchange("/")
 	String getWelcome();
 
-	@GetExchange("/loginSuccess")
+	@GetExchange("/loginSocial")
 	String getSuccess();
 
 }
