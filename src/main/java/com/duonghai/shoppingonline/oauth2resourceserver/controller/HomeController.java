@@ -1,5 +1,7 @@
 package com.duonghai.shoppingonline.oauth2resourceserver.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +16,16 @@ public class HomeController {
 		return "Welcome to Spring Resource Server 01! - " + (userDetails.getName()) + " - " + userDetails.getAuthorities();
 	}
 
-	@GetMapping("/loginSocial")
+	@GetMapping("/social")
 	public String ssoLogin() {
 		Authentication userDetails = SecurityContextHolder.getContext().getAuthentication();
 		return "Welcome to Spring SSO! - " + userDetails.getName() + " - " + userDetails.getAuthorities();
+	}
+
+	@GetMapping("/errors/access-denied")
+	public String denied() {
+		Authentication userDetails = SecurityContextHolder.getContext().getAuthentication();
+		return "Access denied - " + userDetails.getName() + " is not allowed for this page!";
 	}
 
 }
