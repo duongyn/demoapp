@@ -1,5 +1,6 @@
 package com.duonghai.shoppingonline.oauth2authorizationserver.socialclient.config;
 
+import com.duonghai.shoppingonline.oauth2authorizationserver.entity.UserEntity;
 import com.duonghai.shoppingonline.oauth2authorizationserver.socialclient.service.CustomOAuth2User;
 import com.duonghai.shoppingonline.oauth2authorizationserver.socialclient.service.UserService;
 import jakarta.servlet.ServletException;
@@ -21,8 +22,13 @@ public class SuccessAuthenticateHandler implements AuthenticationSuccessHandler 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
-        userService.createSocialUser(oauthUser);
-        response.sendRedirect("http://127.0.0.1:8080/oauth2/authorization/social-google");
+        UserEntity user = userService.createSocialUser(oauthUser);
+        if(user.getId() == 0) {
+            response.sendRedirect("/error?username="+user.getUsername());
+        }
+        else {
+            response.sendRedirect("http://127.0.0.1:8080/oauth2/authorization/social-google");
+        }
     }
 
 }

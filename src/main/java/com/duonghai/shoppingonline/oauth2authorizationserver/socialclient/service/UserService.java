@@ -6,6 +6,7 @@ import com.duonghai.shoppingonline.oauth2authorizationserver.model.ERole;
 import com.duonghai.shoppingonline.oauth2authorizationserver.model.Provider;
 import com.duonghai.shoppingonline.oauth2authorizationserver.repository.RoleRepository;
 import com.duonghai.shoppingonline.oauth2authorizationserver.repository.UserRepository;
+import com.duonghai.shoppingonline.oauth2authorizationserver.socialclient.exception.ExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,19 +20,22 @@ public class UserService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public void createSocialUser(CustomOAuth2User oAuth2User) {
+    public UserEntity createSocialUser(CustomOAuth2User oAuth2User) {
         UserEntity user = customInfo(oAuth2User.getAttributes());
         setRolesForUser(user);
         if(userRepository.findByUsername(user.getUsername()).isEmpty()) {
-            userRepository.save(user);
+            return userRepository.save(user);
         }
         else {
-            throw new RuntimeException("User "+user.getUsername()+" exists in the database");
+            UserEntity existUser = new UserEntity();
+            existUser.setUsername(user.getUsername());
+            existUser.setId(0);
+            return existUser;
         }
     }
 
     private void setRolesForUser(UserEntity user) {
-        RoleEntity roleUser = roleRepository.findByRole(ERole.ROLE_USER.name()).orElseThrow( () -> new RuntimeException("Not found Role User in database"));
+        RoleEntity roleUser = roleRepository.findByRole(ERole.ROLE_USER.name()).orElseThrow( () -> new ExistException(404, "Not found Role User in database"));
         Set<RoleEntity> roles = new HashSet<>();
         roles.add(roleUser);
         user.setAuthorities(roles);

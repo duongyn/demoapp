@@ -43,6 +43,9 @@ public class SocialClientSecurityConfig {
     @Autowired
     private SuccessAuthenticateHandler successAuthenticateHandler;
 
+    @Autowired
+    private FailureHandler failureHandler;
+
     @Bean
     @Order(1)
     public SecurityFilterChain asSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -67,7 +70,8 @@ public class SocialClientSecurityConfig {
                 .userInfoEndpoint()
                 .userService(oAuth2UserService)
                 .and()
-                .successHandler(successAuthenticateHandler).and()
+                .successHandler(successAuthenticateHandler)
+                .failureHandler(failureHandler).and()
                 .build();
 
     }
@@ -86,7 +90,7 @@ public class SocialClientSecurityConfig {
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)
                 .scope(OidcScopes.EMAIL)
-                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/google")
+                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/social-google")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
