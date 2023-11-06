@@ -1,6 +1,6 @@
-package com.duonghai.shoppingonline.oauth2authorizationserver.model;
+package com.duonghai.shoppingonline.model;
 
-import com.duonghai.shoppingonline.oauth2authorizationserver.entity.UserEntity;
+import com.duonghai.shoppingonline.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

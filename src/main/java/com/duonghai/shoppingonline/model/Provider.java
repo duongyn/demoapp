@@ -1,4 +1,4 @@
-package com.duonghai.shoppingonline.oauth2authorizationserver.model;
+package com.duonghai.shoppingonline.model;
 
 public enum Provider {
     LOCAL,

@@ -1,8 +1,8 @@
 package com.duonghai.shoppingonline.oauth2authorizationserver.customclient.service;
 
-import com.duonghai.shoppingonline.oauth2authorizationserver.entity.UserEntity;
-import com.duonghai.shoppingonline.oauth2authorizationserver.model.UserDetailsImpl;
-import com.duonghai.shoppingonline.oauth2authorizationserver.repository.UserRepository;
+import com.duonghai.shoppingonline.entity.UserEntity;
+import com.duonghai.shoppingonline.model.UserDetailsImpl;
+import com.duonghai.shoppingonline.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,8 +1,8 @@
 package com.duonghai.shoppingonline.oauth2authorizationserver.customclient.config;
 
-import com.duonghai.shoppingonline.oauth2authorizationserver.entity.RoleEntity;
-import com.duonghai.shoppingonline.oauth2authorizationserver.model.ERole;
-import com.duonghai.shoppingonline.oauth2authorizationserver.repository.RoleRepository;
+import com.duonghai.shoppingonline.entity.RoleEntity;
+import com.duonghai.shoppingonline.model.ERole;
+import com.duonghai.shoppingonline.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;

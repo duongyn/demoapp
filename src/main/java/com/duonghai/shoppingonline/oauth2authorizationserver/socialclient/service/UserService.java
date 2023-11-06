@@ -1,11 +1,11 @@
 package com.duonghai.shoppingonline.oauth2authorizationserver.socialclient.service;
 
-import com.duonghai.shoppingonline.oauth2authorizationserver.entity.RoleEntity;
-import com.duonghai.shoppingonline.oauth2authorizationserver.entity.UserEntity;
-import com.duonghai.shoppingonline.oauth2authorizationserver.model.ERole;
-import com.duonghai.shoppingonline.oauth2authorizationserver.model.Provider;
-import com.duonghai.shoppingonline.oauth2authorizationserver.repository.RoleRepository;
-import com.duonghai.shoppingonline.oauth2authorizationserver.repository.UserRepository;
+import com.duonghai.shoppingonline.entity.RoleEntity;
+import com.duonghai.shoppingonline.entity.UserEntity;
+import com.duonghai.shoppingonline.model.ERole;
+import com.duonghai.shoppingonline.model.Provider;
+import com.duonghai.shoppingonline.repository.RoleRepository;
+import com.duonghai.shoppingonline.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,25 +44,25 @@ public class UserService {
         user.setAuthorities(roles);
     }
 
-    private String customUsernameFromEmail(String email) {
-        return email != null ? email.split("@")[0] : "";
-    }
-
     private UserEntity customInfo(Map<String, Object> attributes) {
         UserEntity user = new UserEntity();
         String attrs = attributes.toString();
         if(attrs.contains("github")) {
-            user.setEmailAddress(attributes.get("email").toString());
-            user.setFirstName(attributes.get("name").toString());
-            user.setUsername(attributes.get("login").toString());
-            user.setProvider(Provider.GITHUB);
+            user = UserEntity.builder()
+                    .emailAddress(attributes.get("email").toString())
+                    .firstName(attributes.get("name").toString())
+                    .username(attributes.get("id").toString())
+                    .provider(Provider.GITHUB)
+                    .build();
         }
         else if(attrs.contains("google")){
-            user.setEmailAddress(attributes.get("email").toString());
-            user.setUsername(customUsernameFromEmail(user.getEmailAddress()));
-            user.setFirstName(attributes.get("given_name").toString());
-            user.setLastName(attributes.get("family_name").toString());
-            user.setProvider(Provider.GOOGLE);
+            user = UserEntity.builder()
+                    .emailAddress(attributes.get("email").toString())
+                    .firstName(attributes.get("given_name").toString())
+                    .lastName(attributes.get("family_name").toString())
+                    .username(attributes.get("sub").toString())
+                    .provider(Provider.GOOGLE)
+                    .build();
         }
         else {
             user.setProvider(Provider.LOCAL);

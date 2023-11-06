@@ -1,6 +1,6 @@
 package com.duonghai.shoppingonline.oauth2authorizationserver.socialclient.config;
 
-import com.duonghai.shoppingonline.oauth2authorizationserver.entity.UserEntity;
+import com.duonghai.shoppingonline.entity.UserEntity;
 import com.duonghai.shoppingonline.oauth2authorizationserver.socialclient.service.CustomOAuth2User;
 import com.duonghai.shoppingonline.oauth2authorizationserver.socialclient.service.UserService;
 import jakarta.servlet.ServletException;

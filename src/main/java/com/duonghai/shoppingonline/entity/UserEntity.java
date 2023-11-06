@@ -1,6 +1,6 @@
-package com.duonghai.shoppingonline.oauth2authorizationserver.entity;
+package com.duonghai.shoppingonline.entity;
 
-import com.duonghai.shoppingonline.oauth2authorizationserver.model.Provider;
+import com.duonghai.shoppingonline.model.Provider;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +14,7 @@ import java.util.Set;
 @Entity
 @Setter
 @Table(name = "users")
-public class UserEntity {
+public class UserEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,7 +22,7 @@ public class UserEntity {
     @NonNull
     @Column(unique = true)
     private String username;
-    @NonNull
+
     private String password;
 
     @Singular

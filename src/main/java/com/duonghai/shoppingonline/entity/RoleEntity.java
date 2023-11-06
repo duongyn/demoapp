@@ -1,4 +1,4 @@
-package com.duonghai.shoppingonline.oauth2authorizationserver.entity;
+package com.duonghai.shoppingonline.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "roles")
-public class RoleEntity {
+public class RoleEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

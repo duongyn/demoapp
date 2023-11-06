@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @PropertySource("classpath:application-oauth2-authorization-custom-server.properties")
-@EnableJpaRepositories("com.duonghai.shoppingonline.oauth2authorizationserver.repository")
+@EnableJpaRepositories("com.duonghai.shoppingonline.repository")
 //@ComponentScan(basePackages = { "com.duonghai.shoppingonline.oauth2authorizationserver.customclient" })
-@EntityScan("com.duonghai.shoppingonline.oauth2authorizationserver.*")
+@EntityScan("com.duonghai.shoppingonline.*")
 public class Oauth2AuthorizationCustomServerApplication {
 
     public static void main(String[] args) {
