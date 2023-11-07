@@ -55,12 +55,21 @@ public class ClientUserService {
 
     public UserDTO saveUser(UserDTO dto) {
         UserEntity entity = convertToEntity(dto);
-        roleRepository.findByRole(ERole.ROLE_USER.name()).ifPresent(roleUser -> entity.setAuthorities(Collections.singleton(roleUser)));
-        entity.setCreatedDate(LocalDateTime.now());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication != null) {
-            entity.setCreatedBy(authentication.getName());
+        if(dto.getId() == null || userRepository.findById(dto.getId()).isEmpty()) {
+            roleRepository.findByRole(ERole.ROLE_USER.name()).ifPresent(roleUser -> entity.setAuthorities(Collections.singleton(roleUser)));
+            entity.setCreatedDate(LocalDateTime.now());
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if(authentication != null) {
+                entity.setCreatedBy(authentication.getName());
+            }
+        }
+        else {
+            entity.setId(dto.getId());
         }
         return convertToDTO(userRepository.save(entity));
+    }
+
+    public UserDTO findById(int id) {
+        return userRepository.findById(id).map(this::convertToDTO).orElse(null);
     }
 }

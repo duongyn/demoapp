@@ -21,7 +21,4 @@ public interface WelcomeClient {
 	@GetExchange("/users")
 	String getUsers();
 
-	@PostExchange("/users")
-	String addUser();
-
 }

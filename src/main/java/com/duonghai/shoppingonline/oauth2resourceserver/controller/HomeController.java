@@ -33,9 +33,4 @@ public class HomeController {
 	public String getUsers() {
 		return "List Users: ";
 	}
-
-	@PostMapping("/users")
-	public String addUser() {
-		return "Created User: ";
-	}
 }

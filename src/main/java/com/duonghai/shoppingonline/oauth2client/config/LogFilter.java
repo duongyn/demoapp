@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Enumeration;
 
-//@Component
-//@Order(Ordered.HIGHEST_PRECEDENCE)
+@Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class LogFilter implements Filter {
 
 	@Override
