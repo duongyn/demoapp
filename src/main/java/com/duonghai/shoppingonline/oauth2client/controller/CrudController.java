@@ -64,8 +64,10 @@ public class CrudController {
 
     @PostMapping("/users/{id}")
     public String updateUser(@PathVariable("id") int id, @Valid UserDTO user, BindingResult result, Model model) {
+//        System.out.println(user);
         if (result.hasErrors()) {
             user.setId(id);
+            model.addAttribute("user", user);
             return "update-user";
         }
         userService.saveUser(user);

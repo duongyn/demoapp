@@ -54,8 +54,9 @@ public class ClientUserService {
     }
 
     public UserDTO saveUser(UserDTO dto) {
-        UserEntity entity = convertToEntity(dto);
+        UserEntity entity;
         if(dto.getId() == null || userRepository.findById(dto.getId()).isEmpty()) {
+            entity = convertToEntity(dto);
             roleRepository.findByRole(ERole.ROLE_USER.name()).ifPresent(roleUser -> entity.setAuthorities(Collections.singleton(roleUser)));
             entity.setCreatedDate(LocalDateTime.now());
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -64,7 +65,10 @@ public class ClientUserService {
             }
         }
         else {
-            entity.setId(dto.getId());
+            entity = userRepository.findById(dto.getId()).get();
+            entity.setEmailAddress(dto.getEmailAddress());
+            entity.setFirstName(dto.getFirstName());
+            entity.setLastName(dto.getLastName());
         }
         return convertToDTO(userRepository.save(entity));
     }
