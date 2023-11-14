@@ -7,6 +7,7 @@ import com.duonghai.shoppingonline.model.Provider;
 import com.duonghai.shoppingonline.repository.RoleRepository;
 import com.duonghai.shoppingonline.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -21,17 +22,14 @@ public class UserService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public UserEntity createSocialUser(CustomOAuth2User oAuth2User) {
+    public UserEntity createSocialUser(OAuth2User oAuth2User) {
         UserEntity user = customInfo(oAuth2User.getAttributes());
         setRolesForUser(user);
         if(userRepository.findByUsername(user.getUsername()).isEmpty()) {
             return userRepository.save(user);
         }
         else {
-            UserEntity existUser = new UserEntity();
-            existUser.setUsername(user.getUsername());
-            existUser.setId(0);
-            return existUser;
+            return userRepository.findByUsername(user.getUsername()).get();
         }
     }
 

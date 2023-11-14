@@ -61,6 +61,8 @@ public class SocialClientSecurityConfig {
         return http
                 .getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(withDefaults())
                 .and()
+                .exceptionHandling(e -> e
+                        .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")))
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .build();
     }

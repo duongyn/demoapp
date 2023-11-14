@@ -1,7 +1,6 @@
 package com.duonghai.shoppingonline.oauth2authorizationserver.socialclient.service;
 
 import com.duonghai.shoppingonline.entity.UserEntity;
-import com.duonghai.shoppingonline.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -13,14 +12,13 @@ import org.springframework.stereotype.Service;
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User user =  super.loadUser(userRequest);
-        UserEntity entity = userRepository.findByUsername(user.getName()).orElse(null);
+        UserEntity entity = userService.createSocialUser(user);
 
-//        System.out.println(user.toString());
         return new CustomOAuth2User(user,entity);
     }
 }

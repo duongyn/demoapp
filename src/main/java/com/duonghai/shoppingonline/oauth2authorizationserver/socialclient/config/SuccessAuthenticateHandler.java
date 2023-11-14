@@ -22,14 +22,9 @@ public class SuccessAuthenticateHandler implements AuthenticationSuccessHandler 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
-        UserEntity user = userService.createSocialUser(oauthUser);
+        System.out.println(oauthUser.getAuthorities());
         response.sendRedirect("http://127.0.0.1:8080/oauth2/authorization/social-google");
-//        if(user.getId() == 0) {
-//            response.sendRedirect("/error?username="+user.getUsername());
-//        }
-//        else {
-//
-//        }
+
     }
 
 }
